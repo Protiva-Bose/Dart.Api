@@ -54,7 +54,10 @@ Example in code:<br>
   }<br>
 ## JSON place holder is a open source plateform that provide the API's
 ### When we have to use packages in flutter dart project,then <b>pub.dev website helps to get it.It is the official package repository for Dart and Flutter apps.<br>
-To integrate the api we have a prpackage named http,it allows to integrate api in our project.This package uses different pacckages of networking protocols.To add the http package in project go to http/installing/dependencies/copy-http ^0.13.4
+To integrate the api we have a prpackage named http,it allows to integrate api in our project.This package uses different pacckages of networking protocols.To add the http package in project go to http/installing/dependencies/copy-http ^0.13.4<br>
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/339c7817-a495-4586-8754-b5149ec0c208" alt="Screenshot 2024-10-05 014934" width="180" height="320">
+</div>
 
            
 
