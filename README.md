@@ -1,4 +1,4 @@
-# What is client or server?
+![Screenshot 2025-03-06 213829](https://github.com/user-attachments/assets/d65e6511-731c-406b-bb27-bcd105c801ec)# What is client or server?
 -> A server is a computer or a system that provides the resources,data,services or programs to other computers,known as clients,over a network.<br>
 Example:<br>
 Googl<br>
@@ -56,7 +56,8 @@ Example in code:<br>
 ### When we have to use packages in flutter dart project,then <b>pub.dev website helps to get it.It is the official package repository for Dart and Flutter apps.<br>
 To integrate the api we have a prpackage named http,it allows to integrate api in our project.This package uses different pacckages of networking protocols.To add the http package in project go to http/installing/dependencies/copy-http ^0.13.4<br>
 <div align="center">
-  <img src="C:\Users\Lenovo\Pictures\Screenshots\Screenshot 2025-03-06 213829.png">
+  <img src=![Screenshot 2025-03-06 213829](https://github.com/user-attachments/assets/f6acaa0d-41cb-4759-82ff-1e9e578e2b0f)
+>
 </div>
 
            
