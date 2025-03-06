@@ -1,4 +1,4 @@
-![Screenshot 2025-03-06 213829](https://github.com/user-attachments/assets/d65e6511-731c-406b-bb27-bcd105c801ec)# What is client or server?
+# What is client or server?
 -> A server is a computer or a system that provides the resources,data,services or programs to other computers,known as clients,over a network.<br>
 Example:<br>
 Googl<br>
