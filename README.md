@@ -30,11 +30,30 @@ Example: { "name":"Protiva","ID":41,};<br>
 here's are two parameters name: "name and "ID".
 ### Nested JSON object:
 { "status": true,<br>
-  "messege":"Login successful",<br>
+  "message":"Login successful",<br>
   "data":{<br>
            "name":"Shi",<br>
            "age":23,<br>
            },<br>
              }<br>
+### JSON Array:
+These square bracket [] represents array in programming language or list,similarly json it has same structure to return value.<br>
+This simple array which holds string value.<br>
+Example: ["Ford","BMW"]<br>
+Example in code:<br>
+{"status": true,<br>
+  "message":"Login successful",<br>
+  "data":[<br>
+  {<br>
+  "id":41,<br>
+  "user_id":2,<br>
+  "time":"9.12",<br>
+  "date":"3/6/2025"<br>
+  }<br>
+  ],<br>
+  }<br>
+## JSON place holder is a open source plateform that provide the API's
+### When we have to use packages in flutter dart project,then <b>pub.dev website helps to get it.
+
            
 
