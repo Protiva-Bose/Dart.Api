@@ -1,16 +1,11 @@
-# Flutter get API call with Null Safety:
-### 1. Go to the website -> ## jsonplaceholder ### ->Go Routes ->Get /Posts->copy the URL ->Check this URL in PostMan.
-### 2. Go to the Flutter project -> go pubspec.yaml and pubget http: ^0.13.4 -> and import http package (import 'package:http/http.dart' as http;)
-### 3. When we install plugins in flutter project ,it's not working untill there's exist a name of api's object or array.So theres's a problem to create a exact moel we want.For this go to the lib of flutter project and create a directory named-> Models.
-### 4. Again go to the Models -> New ->Json To Dart -> create class name (PostsModel) -> if our project show null safety then click this ->now copy paste the api code from the PostsMan and generate it.
-### 5. We see that there's only the object is created in PostsModel, for this there is no array or list exist,that's why we have to initialize the array or list in our code.And make a custom list:
+🔐🗝️ We see that there's only the object is created in PostsModel, for this there is no array or list exist,that's why we have to initialize the array or list in our code.And make a custom list:
 Go to the home page ->
 write the code of Future function under class:
+
+
+
 .......................
 class _HomScreenState extends State<HomScreen> {
-
-
-
   List<PostsModel> postList = [];
 
   Future<List<PostsModel>> getPostApi() async {
@@ -26,20 +21,106 @@ class _HomScreenState extends State<HomScreen> {
       return postList;
     }
   }
-
-
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold();
   }
 }....................
 
-### For this our API is hit in our flutter project.
-### 6.Now we have to show this API:
-Write the code under body:
 
+🔐🗝️  Full description of this code:
+
+
+✨ class _HomScreenState extends State<HomScreen> { ✨
+
+This defines a class _HomScreenState that extends State<HomScreen>, meaning it is a stateful widget.
+HomScreen is presumably a screen widget in the app.
+The underscore (_) before the class name means it is private to the file.
+
+
+✨ List<PostsModel> postList = []; ✨
+
+This declares a list named postList, which will hold objects of type PostsModel.
+It is initially empty and will later store data fetched from an API.
+
+
+✨ Future<List<PostsModel>> getPostApi() async { ✨
+
+This function getPostApi() is an asynchronous function (async keyword) that fetches data from an API.
+It returns a Future<List<PostsModel>>, meaning it will eventually return a list of PostsModel objects.
+
+
+✨ final response = await http.get(Uri.parse('https://jsonplaceholder.typicode.com/posts')); ✨
+
+This line makes an HTTP GET request to the API https://jsonplaceholder.typicode.com/posts.
+The await keyword is used to wait for the response from the API before moving to the next line.
+
+
+✨ var data = jsonDecode(response.body.toString()); ✨
+
+response.body contains the raw JSON response from the API.
+jsonDecode(response.body.toString()) converts this JSON string into a Dart object, usually a List<Map>.
+
+
+✨ if (response.statusCode == 200) { ✨
+
+This checks if the API request was successful.
+A statusCode of 200 means the request was successful and data was received.
+
+
+✨ for (Map i in data) { 
+  postList.add(PostsModel.fromJson(i));
+} ✨
+
+This loops through each element (Map i) in data (which is a list of JSON objects).
+PostsModel.fromJson(i) converts each JSON object into a PostsModel instance.
+The converted object is then added to the postList.
+
+
+✨ return postList; ✨
+
+After processing the data, the function returns the postList, which now contains a list of PostsModel objects.
+
+
+✨ } else { 
+  return postList;
+} ✨
+
+If the response status is not 200 (meaning there was an error), it simply returns the empty postList.
+
+
+✨ @override
+Widget build(BuildContext context) {
+  return Scaffold();
+} ✨
+
+This is the build method, which returns a Scaffold widget (an empty screen for now).
+Scaffold is a basic structure in Flutter that provides a layout for app screens.
+
+
+🔐🗝️ How the Code Works:
+
+When the screen (widget) is initialized, postList is an empty list.
+The getPostApi() function is called asynchronously to fetch data from the API.
+The API response is received and decoded into a Dart object.
+If the response is successful (statusCode == 200):
+It loops through the JSON data.
+Converts each JSON object into a PostsModel object.
+Adds each object to postList.
+Returns the updated list.
+If the response is not successful, it simply returns an empty list.
+The build method returns an empty screen (Scaffold), but this can be expanded to display the postList in a widget like ListView.
+
+🔐🗝️ Potential Improvements:
+Handle API errors properly (e.g., show an error message).
+Use setState to update the UI after fetching data.
+Display the fetched posts in a UI widget like ListView.builder().
+
+
+🔐🗝️ For this our API is hit in our flutter project.
+🗝️ 6.Now we have to show this API:
+
+Write the code under body:
 
 ......................
 @override
@@ -48,7 +129,6 @@ Widget build(BuildContext context) {
     appBar: AppBar(
       title: Text("Api Course"),
     ), // AppBar
-
 
     body: Column(
       children: [
@@ -76,99 +156,53 @@ Widget build(BuildContext context) {
 ...........................
 
 
+🔐🗝️  Full description of this code:
+
+1️⃣ body: Column(
+This defines the body of the Scaffold widget and uses a Column to structure the UI vertically.
+2️⃣ children: [
+The Column widget takes a list of children, meaning multiple widgets can be added inside it.
+3️⃣ Expanded(
+This ensures that the child widget (inside Expanded) takes all available space.
+4️⃣ child: FutureBuilder(
+FutureBuilder is used to handle asynchronous data fetching. It waits for the API response and updates the UI accordingly.
+5️⃣ future: getPostApi(),
+The future parameter is assigned the function getPostApi(), which fetches data from an API.
+6️⃣ builder: (context, snapshot) {
+The builder function defines how the UI should be built based on the state of snapshot, which holds the response of the future (getPostApi()).
+7️⃣ if (!snapshot.hasData) {
+This checks if the snapshot has no data, meaning the API call is still in progress.
+8️⃣ return Text("Loading...");
+If data is not available yet, it shows a "Loading..." message.
+9️⃣ } else {
+Once data is available, execution moves to this block.
+🔟 return ListView.builder(
+ListView.builder dynamically creates a scrollable list based on the API data.
+1️⃣1️⃣ itemCount: postList.length,
+Specifies the number of items in the list, based on the length of postList, which contains the fetched API data.
+1️⃣2️⃣ itemBuilder: (context, index) {
+This function builds each item in the list, iterating through postList using an index.
+1️⃣3️⃣ return Text(postList[index].title.toString());
+Displays each post’s title as a Text widget. The title is converted to a string to ensure it is displayed correctly.
+
+🔐🗝️ Working Process of the Code:
+✨Starts Execution
+
+✨The FutureBuilder calls getPostApi() to fetch data from an API.
+✨Displays Loading Message
+
+✨While waiting for data, snapshot.hasData is false, so "Loading..." is displayed.
+✨Receives API Data
+
+✨Once the API response is received, snapshot.hasData becomes true.
+✨Builds ListView
+
+✨ListView.builder creates a dynamic list using postList.length, displaying each title in a Text widget.
+
+🔐🗝️ Final Output:
+Before Data Loads → Shows "Loading...".
+After Data Loads → Displays a list of titles fetched from the API.
 
 
+🔐🗝️ To arrange more suitable form write this in reuturn with explanation :
 
-
-
-
-
-
-Explanation of the Code Line by Line:
-dart
-Copy
-Edit
-class _HomScreenState extends State<HomScreen> {
-This defines a class _HomScreenState that extends State<HomScreen>, meaning it is a stateful widget.
-HomScreen is presumably a screen widget in the app.
-The underscore (_) before the class name means it is private to the file.
-dart
-Copy
-Edit
-List<PostsModel> postList = [];
-This declares a list named postList, which will hold objects of type PostsModel.
-It is initially empty and will later store data fetched from an API.
-dart
-Copy
-Edit
-Future<List<PostsModel>> getPostApi() async {
-This function getPostApi() is an asynchronous function (async keyword) that fetches data from an API.
-It returns a Future<List<PostsModel>>, meaning it will eventually return a list of PostsModel objects.
-dart
-Copy
-Edit
-final response = await http.get(Uri.parse('https://jsonplaceholder.typicode.com/posts'));
-This line makes an HTTP GET request to the API https://jsonplaceholder.typicode.com/posts.
-The await keyword is used to wait for the response from the API before moving to the next line.
-dart
-Copy
-Edit
-var data = jsonDecode(response.body.toString());
-response.body contains the raw JSON response from the API.
-jsonDecode(response.body.toString()) converts this JSON string into a Dart object, usually a List<Map>.
-dart
-Copy
-Edit
-if (response.statusCode == 200) {
-This checks if the API request was successful.
-A statusCode of 200 means the request was successful and data was received.
-dart
-Copy
-Edit
-for (Map i in data) {
-  postList.add(PostsModel.fromJson(i));
-}
-This loops through each element (Map i) in data (which is a list of JSON objects).
-PostsModel.fromJson(i) converts each JSON object into a PostsModel instance.
-The converted object is then added to the postList.
-dart
-Copy
-Edit
-return postList;
-After processing the data, the function returns the postList, which now contains a list of PostsModel objects.
-dart
-Copy
-Edit
-} else {
-  return postList;
-}
-If the response status is not 200 (meaning there was an error), it simply returns the empty postList.
-dart
-Copy
-Edit
-@override
-Widget build(BuildContext context) {
-  return Scaffold();
-}
-This is the build method, which returns a Scaffold widget (an empty screen for now).
-Scaffold is a basic structure in Flutter that provides a layout for app screens.
-How the Code Works:
-When the screen (widget) is initialized, postList is an empty list.
-The getPostApi() function is called asynchronously to fetch data from the API.
-The API response is received and decoded into a Dart object.
-If the response is successful (statusCode == 200):
-It loops through the JSON data.
-Converts each JSON object into a PostsModel object.
-Adds each object to postList.
-Returns the updated list.
-If the response is not successful, it simply returns an empty list.
-The build method returns an empty screen (Scaffold), but this can be expanded to display the postList in a widget like ListView.
-Potential Improvements:
-Handle API errors properly (e.g., show an error message).
-Use setState to update the UI after fetching data.
-Display the fetched posts in a UI widget like ListView.builder().
-
-
-
-
-### To arrange more suitable form write this in reuturn :
