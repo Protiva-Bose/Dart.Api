@@ -4,3 +4,4 @@
 ### 3. When we install plugins in flutter project ,it's not working untill there's exist a name of api's object or array.So theres's a problem to create a exact moel we want.For this go to the lib of flutter project and create a directory named-> Models.
 ### 4. Again go to the Models -> New ->Json To Dart -> create class name (PostsModel) -> if our project show null safety then click this ->now copy paste the api code from the PostsMan and generate it.
 ### 5. "C:\Users\Lenovo\Pictures\Screenshots\Screenshot 2025-03-15 114819.png"
+<img src="https://raw.githubusercontent.com/username/repo/main/folder_name/image.png">
