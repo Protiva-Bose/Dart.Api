@@ -66,8 +66,8 @@ To integrate the api we have a prpackage named http,it allows to integrate api i
 ### 5. We see that there's only the object is created in PostsModel, for this there is no array or list exist,that's why we have to initialize the array or list in our code.And make a custom list:
 Go to the home page ->
 write the code of Future function under class:
-#### .......................
- class _HomScreenState extends State<HomScreen> {
+### .......................
+##### class _HomScreenState extends State<HomScreen> {
   List<PostsModel> postList = [];
 
   Future<List<PostsModel>> getPostApi() async {
@@ -86,7 +86,7 @@ write the code of Future function under class:
   Widget build(BuildContext context) {
     return Scaffold();
   }
-  }
+#####  }
 #### ....................
 
 #### For this our API is hit in our flutter project ^
