@@ -66,42 +66,36 @@ To integrate the api we have a prpackage named http,it allows to integrate api i
 ### 5. We see that there's only the object is created in PostsModel, for this there is no array or list exist,that's why we have to initialize the array or list in our code.And make a custom list:
 Go to the home page ->
 write the code of Future function under class:
-.......................
-#### class _HomScreenState extends State<HomScreen> {
- #### List<PostsModel> postList = [];
+#### .......................
+ class _HomScreenState extends State<HomScreen> {
+  List<PostsModel> postList = [];
 
- #### Future<List<PostsModel>> getPostApi() async {
-  ####  final response = await http.get(Uri.parse('https://jsonplaceholder.typicode.com/posts'));
-   #### var data = jsonDecode(response.body.toString());
-   #### if (response.statusCode == 200) {
+  Future<List<PostsModel>> getPostApi() async {
+    final response = await http.get(Uri.parse('https://jsonplaceholder.typicode.com/posts'));
+    var data = jsonDecode(response.body.toString());
+    if (response.statusCode == 200) {
      for (Map i in data) {
         postList.add(PostsModel.fromJson(i));
       }
       return postList;
-  ####  } else {
+    } else {
       return postList;
- ####   }
-####  }
+    }
+  }
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold();
+  }
+  }
+#### ....................
 
-
-
-
-####  @override
- #### Widget build(BuildContext context) {
- ####   return Scaffold();
-####  }
-####  }
-....................
-
-### For this our API is hit in our flutter project.
-#### 6.Now we have to show this API:
+#### For this our API is hit in our flutter project ^
+### 6.Now we have to show this API:
 Write the code under body:
-
-
-......................
-####   @override
-####  Widget build(BuildContext context) {
-####  return Scaffold(
+#### ......................
+   @override
+  Widget build(BuildContext context) {
+  return Scaffold(
     appBar: AppBar(
       title: Text("Api Course"),
     ), // AppBar
@@ -126,11 +120,11 @@ Write the code under body:
         ), // Expanded
       ],
     ), // Column
-####  ); // Scaffold
-####   }
-...........................
+  ); // Scaffold
+   }
+#### ...........................
 
-### To arrange more suitable form write this in reuturn :
+## To arrange more suitable form write this in reuturn :
  return Card(
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
