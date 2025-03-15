@@ -3,7 +3,6 @@ Go to the home page ->
 write the code of Future function under class:
 
 
-
 .......................
 class _HomScreenState extends State<HomScreen> {
   List<PostsModel> postList = [];
@@ -205,4 +204,69 @@ After Data Loads → Displays a list of titles fetched from the API.
 
 
 🔐🗝️ To arrange more suitable form write this in reuturn with explanation :
+
+This code builds a Card widget that displays data from an API, including a title and a body.
+
+1️⃣ return Card(
+The Card widget provides a material design card layout, giving the content a slightly elevated look with rounded corners and a shadow effect.
+2️⃣ child: Padding(
+The Padding widget adds spacing around its child.
+const EdgeInsets.all(8.0) means 8 pixels of padding on all sides.
+3️⃣ child: Column(
+A Column is used to stack multiple widgets vertically inside the Card.
+Everything inside this column is aligned top to bottom.
+4️⃣ crossAxisAlignment: CrossAxisAlignment.start,
+Aligns all child widgets to the left side (start) of the column.
+5️⃣ children: [
+A list of child widgets follows inside the column.
+6️⃣ Text(
+This displays the title of the post.
+7️⃣ snapshot.data![index].title,
+Retrieves the title from the API response (snapshot.data![index]).
+8️⃣ style: const TextStyle(
+Customizes the text appearance.
+9️⃣ fontSize: 18,
+Sets the font size to 18 pixels.
+🔟 fontWeight: FontWeight.bold,
+Makes the text bold.
+1️⃣1️⃣ const SizedBox(height: 5),
+Adds a 5-pixel gap between the title and the body text.
+1️⃣2️⃣ Text(
+Displays the body/content of the post.
+1️⃣3️⃣ snapshot.data![index].body,
+Retrieves the body text from the API.
+1️⃣4️⃣ style: const TextStyle(fontSize: 16),
+Sets the font size of the body text to 16 pixels.
+
+🔐🗝️ How the Code Works Step by Step
+✨Receives API Data
+
+✨snapshot.data![index] contains the post data (title & body).
+✨Creates a Card
+
+✨A material-style card is built to contain the post.
+✨Formats the Title
+
+✨Displays the title in bold (18px).
+✨Adds Spacing
+
+✨SizedBox(height: 5) creates a small gap between the title and body.
+✨Formats the Body
+
+✨Displays the post body in a normal 16px font.
+
+🔐🗝️ Final Output:
+
+Each post appears inside a separate card with a title (bold) and body (regular).
+Expected UI Output
+📌 Example Post (in a Card)
+
+Title: Post Title 
+Body:  This is the post content... 
+
+
+
+
+
+🔐🗝️ Other code EXplanation:
 
