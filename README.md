@@ -89,6 +89,9 @@ write the code of Future function under class:
 #####  }
 #### ....................
 
+
+![Screenshot 2025-03-15 114819](https://github.com/user-attachments/assets/7c1bbea0-dcf7-40f3-956d-dfaea3940e58)
+
 #### For this our API is hit in our flutter project ^
 ### 6.Now we have to show this API:
 Write the code under body:
@@ -124,6 +127,12 @@ Write the code under body:
 #####   }
 #### ...........................
 
+
+![Screenshot 2025-03-15 121046](https://github.com/user-attachments/assets/206ac7d3-35ff-4d56-8a1e-1ff2fc19ec27)
+
+
+![Screenshot 2025-03-15 121852](https://github.com/user-attachments/assets/0fa40300-ec56-4f4e-8f42-d982294cfd58)
+
 ## To arrange more suitable form write this in reuturn :
 ##### return Card(
                         child: Padding(
@@ -147,3 +156,11 @@ Write the code under body:
                           ),
                         ),
                       );
+
+
+                      
+
+![Screenshot 2025-03-15 121923](https://github.com/user-attachments/assets/0f503ad9-57ec-499b-9a8d-9e97809858e1)
+
+
+![Screenshot 2025-03-15 122317](https://github.com/user-attachments/assets/93b3b215-2306-445a-8140-359a08fba1c4)
