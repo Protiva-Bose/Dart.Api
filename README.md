@@ -59,7 +59,7 @@ To integrate the api we have a prpackage named http,it allows to integrate api i
 
 
  # Flutter get API call with Null Safety:
-### 1. Go to the website -> ## jsonplaceholder ### ->Go Routes ->Get /Posts->copy the URL ->Check this URL in PostMan.
+### 1. Go to the website -> jsonplaceholder ->Go Routes ->Get /Posts->copy the URL ->Check this URL in PostMan.
 ### 2. Go to the Flutter project -> go pubspec.yaml and pubget http: ^0.13.4 -> and import http package (import 'package:http/http.dart' as http;)
 ### 3. When we install plugins in flutter project ,it's not working untill there's exist a name of api's object or array.So theres's a problem to create a exact moel we want.For this go to the lib of flutter project and create a directory named-> Models.
 ### 4. Again go to the Models -> New ->Json To Dart -> create class name (PostsModel) -> if our project show null safety then click this ->now copy paste the api code from the PostsMan and generate it.
@@ -74,12 +74,12 @@ write the code of Future function under class:
   ####  final response = await http.get(Uri.parse('https://jsonplaceholder.typicode.com/posts'));
    #### var data = jsonDecode(response.body.toString());
    #### if (response.statusCode == 200) {
-     #### for (Map i in data) {
-      ####  postList.add(PostsModel.fromJson(i));
-    ####  }
-     #### return postList;
+     for (Map i in data) {
+        postList.add(PostsModel.fromJson(i));
+      }
+      return postList;
   ####  } else {
-    ####  return postList;
+      return postList;
  ####   }
 ####  }
 
@@ -90,17 +90,18 @@ write the code of Future function under class:
  #### Widget build(BuildContext context) {
  ####   return Scaffold();
 ####  }
-####  }....................
+####  }
+....................
 
 ### For this our API is hit in our flutter project.
-### 6.Now we have to show this API:
+#### 6.Now we have to show this API:
 Write the code under body:
 
 
 ......................
-@override
-Widget build(BuildContext context) {
-  return Scaffold(
+####   @override
+####  Widget build(BuildContext context) {
+####  return Scaffold(
     appBar: AppBar(
       title: Text("Api Course"),
     ), // AppBar
@@ -125,9 +126,30 @@ Widget build(BuildContext context) {
         ), // Expanded
       ],
     ), // Column
-  ); // Scaffold
-}
+####  ); // Scaffold
+####   }
 ...........................
 
 ### To arrange more suitable form write this in reuturn :
-
+####  return Card(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                snapshot.data![index].title,
+                                style: const TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              const SizedBox(height: 5),
+                              Text(
+                                snapshot.data![index].body,
+                                style: const TextStyle(fontSize: 16),
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
