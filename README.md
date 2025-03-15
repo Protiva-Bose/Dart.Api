@@ -56,3 +56,78 @@ Example in code:<br>
 ### When we have to use packages in flutter dart project,then <b>pub.dev website helps to get it.It is the official package repository for Dart and Flutter apps.<br>
 To integrate the api we have a prpackage named http,it allows to integrate api in our project.This package uses different pacckages of networking protocols.To add the http package in project go to http/installing/dependencies/copy-http ^0.13.4<br>
  ![Screenshot 2025-03-06 213829](https://github.com/user-attachments/assets/f6acaa0d-41cb-4759-82ff-1e9e578e2b0f)
+
+
+ # Flutter get API call with Null Safety:
+### 1. Go to the website -> ## jsonplaceholder ### ->Go Routes ->Get /Posts->copy the URL ->Check this URL in PostMan.
+### 2. Go to the Flutter project -> go pubspec.yaml and pubget http: ^0.13.4 -> and import http package (import 'package:http/http.dart' as http;)
+### 3. When we install plugins in flutter project ,it's not working untill there's exist a name of api's object or array.So theres's a problem to create a exact moel we want.For this go to the lib of flutter project and create a directory named-> Models.
+### 4. Again go to the Models -> New ->Json To Dart -> create class name (PostsModel) -> if our project show null safety then click this ->now copy paste the api code from the PostsMan and generate it.
+### 5. We see that there's only the object is created in PostsModel, for this there is no array or list exist,that's why we have to initialize the array or list in our code.And make a custom list:
+Go to the home page ->
+write the code of Future function under class:
+.......................
+#### class _HomScreenState extends State<HomScreen> {
+ #### List<PostsModel> postList = [];
+
+ #### Future<List<PostsModel>> getPostApi() async {
+  ####  final response = await http.get(Uri.parse('https://jsonplaceholder.typicode.com/posts'));
+   #### var data = jsonDecode(response.body.toString());
+   #### if (response.statusCode == 200) {
+     #### for (Map i in data) {
+      ####  postList.add(PostsModel.fromJson(i));
+    ####  }
+     #### return postList;
+  ####  } else {
+    ####  return postList;
+ ####   }
+####  }
+
+
+
+
+####  @override
+ #### Widget build(BuildContext context) {
+ ####   return Scaffold();
+####  }
+####  }....................
+
+### For this our API is hit in our flutter project.
+### 6.Now we have to show this API:
+Write the code under body:
+
+
+......................
+@override
+Widget build(BuildContext context) {
+  return Scaffold(
+    appBar: AppBar(
+      title: Text("Api Course"),
+    ), // AppBar
+    body: Column(
+      children: [
+        Expanded(
+          child: FutureBuilder(
+            future: getPostApi(),
+            builder: (context, snapshot) {
+              if (!snapshot.hasData) {
+                return Text("Loading...");
+              } else {
+                return ListView.builder(
+                  itemCount: postList.length,
+                  itemBuilder: (context, index) {
+                    return Text(postList[index].title.toString());
+                  },
+                );
+              }
+            },
+          ), // FutureBuilder
+        ), // Expanded
+      ],
+    ), // Column
+  ); // Scaffold
+}
+...........................
+
+### To arrange more suitable form write this in reuturn :
+
