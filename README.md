@@ -68,9 +68,9 @@ Go to the home page ->
 write the code of Future function under class:
 ### .......................
 ##### class _HomScreenState extends State<HomScreen> {
-  List<PostsModel> postList = [];
+ ##### List<PostsModel> postList = [];
 
-  Future<List<PostsModel>> getPostApi() async {
+#####  Future<List<PostsModel>> getPostApi() async {
     final response = await http.get(Uri.parse('https://jsonplaceholder.typicode.com/posts'));
     var data = jsonDecode(response.body.toString());
     if (response.statusCode == 200) {
@@ -81,11 +81,11 @@ write the code of Future function under class:
     } else {
       return postList;
     }
-  }
-  @override
-  Widget build(BuildContext context) {
+#####  }
+#####  @override
+#####  Widget build(BuildContext context) {
     return Scaffold();
-  }
+#####  }
 #####  }
 #### ....................
 
@@ -93,9 +93,9 @@ write the code of Future function under class:
 ### 6.Now we have to show this API:
 Write the code under body:
 #### ......................
-   @override
-  Widget build(BuildContext context) {
-  return Scaffold(
+#####   @override
+ ##### Widget build(BuildContext context) {
+#####  return Scaffold(
     appBar: AppBar(
       title: Text("Api Course"),
     ), // AppBar
@@ -120,12 +120,12 @@ Write the code under body:
         ), // Expanded
       ],
     ), // Column
-  ); // Scaffold
-   }
+#####  ); // Scaffold
+#####   }
 #### ...........................
 
 ## To arrange more suitable form write this in reuturn :
- return Card(
+##### return Card(
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Column(
