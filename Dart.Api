@@ -1,10 +1,6 @@
-What is client or server?
--> A server is a computer or a system that provides the resources,data,services or programs to other computers,known as clients,over a network.
-Example:
-Googl
-FoodPanda
-Fcaebook
-Whatsapp
-#API : Application Program Interface,that allow conversation between client and server.
-In server ,cleint related datas are stored,when we search something in youtube,the srever collected the data and connected with the database and this database fetch our required query.
-When we try to log in any website ,the client is connected via internet with the server the help of api,the request go to the server via API,and then the server validate this request and throw this to the database anf fetch this data or the requred data and send the OTP to the client.
+# Flutter get API call with Null Safety:
+### 1. Go to the website -> ## jsonplaceholder ### ->Go Routes ->Get /Posts->copy the URL ->Check this URL in PostMan.
+### 2. Go to the Flutter project -> go pubspec.yaml and pubget http: ^0.13.4 -> and import http package (import 'package:http/http.dart' as http;)
+### 3. When we install plugins in flutter project ,it's not working untill there's exist a name of api's object or array.So theres's a problem to create a exact moel we want.For this go to the lib of flutter project and create a directory named-> Models.
+### 4. Again go to the Models -> New ->Json To Dart -> create class name (PostsModel) -> if our project show null safety then click this ->now copy paste the api code from the PostsMan and generate it.
+### 5. "C:\Users\Lenovo\Pictures\Screenshots\Screenshot 2025-03-15 114819.png"
