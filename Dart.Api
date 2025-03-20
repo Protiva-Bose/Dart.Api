@@ -116,6 +116,7 @@ Use setState to update the UI after fetching data.
 Display the fetched posts in a UI widget like ListView.builder().
 
 
+
 🔐🗝️ For this our API is hit in our flutter project.
 🗝️ 6.Now we have to show this API:
 
@@ -201,6 +202,10 @@ Displays each post’s title as a Text widget. The title is converted to a strin
 🔐🗝️ Final Output:
 Before Data Loads → Shows "Loading...".
 After Data Loads → Displays a list of titles fetched from the API.
+
+
+
+
 
 
 🔐🗝️ To arrange more suitable form write this in reuturn with explanation :
