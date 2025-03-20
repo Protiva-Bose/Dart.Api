@@ -245,3 +245,109 @@ Write the code under body:
 ###### }
 
 https://github.com/user-attachments/assets/579886b6-4713-45b0-9d50-5b51b84636f8
+
+
+## Flutter get API call with Null Safety: (Plugins make the Model) ->Complex Nested Object
+
+###### import 'package:flutter/material.dart';
+###### import 'dart:convert';
+###### import 'package:http/http.dart' as http;
+###### import 'package:untitled/Models/UserModel.dart';
+
+###### class ExampleThree extends StatefulWidget {
+ ######  ExampleThree({Key?key}): super(key: key);
+
+######  @override
+######  State<ExampleThree> createState() => _ExampleThreeState();
+###### }
+
+###### class _ExampleThreeState extends State<ExampleThree> {
+
+ ###### List<UserModel> userList=[];
+
+######  Future<List<UserModel>> getUserApi() async{
+    final response =await http.get(Uri.parse('https://jsonplaceholder.typicode.com/users'));
+
+     var data = jsonDecode(response.body.toString());
+    if(response.statusCode==200){
+      for(Map i in data){
+        print(i['name']);
+          userList.add(UserModel.fromJson(i as Map<String, dynamic>));
+      }
+      return userList;
+    }
+    else {
+      return userList;
+    }
+######  }
+
+
+######  @override
+######  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Column(
+        children: [
+          Expanded(
+              child:
+          FutureBuilder(future: getUserApi(),
+              builder: (context,AsyncSnapshot<List<UserModel>> snapshot){
+              if(!snapshot.hasData){
+                return CircularProgressIndicator();
+              }
+              else{
+                return ListView.builder(
+                    itemCount: userList.length,
+                    itemBuilder: (context,index){
+
+                      return Card(
+                        child: Padding(padding: EdgeInsets.all(8.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            ReusbaleRow(title: 'Name', value: snapshot.data![index].name.toString()),
+                            ReusbaleRow(title: 'UserName', value: snapshot.data![index].username.toString()),
+                            ReusbaleRow(title: 'Email', value: snapshot.data![index].email.toString()),
+                            ReusbaleRow(title: 'Address', value: snapshot.data![index].address!.city.toString()+
+                                snapshot.data![index].address!.geo!.lat.toString() +
+                                snapshot.data![index].address!.geo!.lng.toString()),
+                          ],
+                        ),)
+                      );
+                    }
+                );
+              }
+              }),
+          )
+        ],
+      ),
+    );
+######  }
+###### }
+
+###### class ReusbaleRow extends StatelessWidget {
+######  String title,value;
+######   ReusbaleRow({Key?key,required this.title,required this.value}): super(key: key);
+
+######  @override
+######  Widget build(BuildContext context) {
+    return Padding(padding: EdgeInsets.all(8.0),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(title),
+        Text(value),
+      ],
+    ),
+    );
+######  }
+###### }
+
+
+
+https://github.com/user-attachments/assets/a4e4b945-9c1b-4dbc-970b-dd12f2b7354d
+
+
+
+
+
+
