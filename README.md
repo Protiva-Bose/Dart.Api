@@ -57,6 +57,93 @@ Example in code:<br>
 To integrate the api we have a prpackage named http,it allows to integrate api in our project.This package uses different pacckages of networking protocols.To add the http package in project go to http/installing/dependencies/copy-http ^0.13.4<br>
  ![Screenshot 2025-03-06 213829](https://github.com/user-attachments/assets/f6acaa0d-41cb-4759-82ff-1e9e578e2b0f)
 
+## api code figure from jsonplaceholder site :
+![image](https://github.com/user-attachments/assets/cc8dbc29-eb8b-4f63-8efa-12acf16934c9)
+## In this case we see there is no name of the array
+#### For this purpose we have to make our own Model to identify this array in our flutter project.Also when we copy the api code from postMan to the jsonToDart  file ,it provide only the object not array. For this we want a Future function and also declare and initialization the list.
+
+The getPhotos function is a Future function in Flutter that retrieves a list of photos from the JSONPlaceholder API (https://jsonplaceholder.typicode.com/photos). It fetches the data, decodes the JSON response, converts it into a list of Photos objects, and returns the list.
+## To hit the API the the code: 
+
+### 1.List photosList = []; 
+Creates an empty list photosList to store photo data
+### 2.Future<List> getPhotos() async {
+Defines an asynchronous function (getPhotos) that returns a Future<List>, meaning it will perform an operation that takes time and return a list when completed.
+### 3.final response = await http.get(Uri.parse('https://jsonplaceholder.typicode.com/photos'));
+Makes an HTTP GET request to fetch data from the given API.
+await waits for the response before moving to the next line.
+### 4.var data = jsonDecode(response.body.toString());
+Converts the API response (JSON format) into a Dart object (a list of maps).
+### 5.if (response.statusCode == 200) {
+Checks if the API call was successful (statusCode == 200 means success).
+### 6.for (Map i in data) {
+Iterates over each JSON object (photo entry) in the list.
+### 7.Photos photos = Photos(
+  #### title: i['title'], 
+  #### url: i['url'], 
+ #### id: i['id'], 
+ #### thumbnailUrl: i['thumbnailUrl']
+### );
+Creates a Photos object from the JSON data.
+Extracts title, URL, ID, and thumbnail URL for each photo.
+### 8.photosList.add(photos);
+Adds the photo object to the photosList.
+### 9.return photosList;
+Returns the list of photos after processing all items.
+### 10.} else {
+####  return photosList;
+### }
+If the API request fails, it returns the empty photosList.
+
+### Summary
+🔹 Fetches data from an API ✅<br>
+🔹 Decodes JSON into Dart objects ✅<br>
+🔹 Stores objects in a list ✅<br>
+🔹 Returns the list for UI display ✅<br>
+
+## Now we have to generate Future.builder function in the body of code:
+# Why Do We Use FutureBuilder?
+FutureBuilder is used in Flutter to handle asynchronous operations, such as fetching data from an API. It automatically rebuilds the widget based on the state of the Future (loading, success, or error). This avoids manually managing states like "loading" and "data received" and makes UI updates smoother.
+### Note for Students 📌
+FutureBuilder simplifies API data handling by automatically updating UI when the data arrives.<br>
+It prevents crashes when data is still loading (instead of accessing null values).<br>
+Use snapshot.hasData to check if data is available before using snapshot.data!.<br>
+This approach ensures a smooth user experience with dynamic and scalable lists.<br>
+
+### FutureBuilder(
+  #### future: getPhotos(),
+Calls the getPhotos() function, which fetches data from an API.<br>
+The FutureBuilder waits for the result and rebuilds when data is available.
+
+### builder: (context, AsyncSnapshot<List<Photos>> snapshot){
+The builder receives an AsyncSnapshot, which represents the state of the future (loading, success, or error).<br>
+It provides access to the data when available.
+
+### return ListView.builder(
+ #### itemCount: photosList.length,
+ #### itemBuilder: (context,index){
+Uses ListView.builder to dynamically create a list of photo items.<br>
+itemCount is set to photosList.length to match the number of fetched items.
+
+### return ListTile(
+####  leading: CircleAvatar(
+    backgroundImage: NetworkImage(snapshot.data![index].url.toString()),
+###  ),
+leading CircleAvatar: Displays a large profile image from the url.<br>
+Uses NetworkImage to fetch and display the image from the web.
+
+### subtitle: Text(snapshot.data![index].title.toString()),
+### title: Text('Note the id: '+snapshot.data![index].id.toString()),
+Title: Shows the photo's title as a subtitle.<br>
+ID: Displays the photo’s unique identifier.
+
+### Final Summary 🚀
+🔹 Fetches API Data Using FutureBuilder ✅<br>
+🔹 Manages Asynchronous States Automatically ✅<br>
+🔹 Displays Data in a ListView Dynamically ✅<br>
+🔹 Optimized for Performance in Flutter ✅
+
+
 
  # Flutter get API call with Null Safety: (Plugins make the Model)
 ### 1. Go to the website -> jsonplaceholder ->Go Routes ->Get /Posts->copy the URL ->Check this URL in PostMan.
