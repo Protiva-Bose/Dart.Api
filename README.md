@@ -58,10 +58,10 @@ To integrate the api we have a prpackage named http,it allows to integrate api i
  ![Screenshot 2025-03-06 213829](https://github.com/user-attachments/assets/f6acaa0d-41cb-4759-82ff-1e9e578e2b0f)
 
 
- # Flutter get API call with Null Safety:
+ # Flutter get API call with Null Safety: (Plugins make the Model)
 ### 1. Go to the website -> jsonplaceholder ->Go Routes ->Get /Posts->copy the URL ->Check this URL in PostMan.
 ### 2. Go to the Flutter project -> go pubspec.yaml and pubget http: ^0.13.4 -> and import http package (import 'package:http/http.dart' as http;)
-### 3. When we install plugins in flutter project ,it's not working untill there's exist a name of api's object or array.So theres's a problem to create a exact moel we want.For this go to the lib of flutter project and create a directory named-> Models.
+### 3. When we install plugins in flutter project ,it's not working untill there's exist a name of api's object or array.So there's a problem to create a exact model we want.For this go to the lib of flutter project and create a directory named-> Models.
 ### 4. Again go to the Models -> New ->Json To Dart -> create class name (PostsModel) -> if our project show null safety then click this ->now copy paste the api code from the PostsMan and generate it.
 ### 5. We see that there's only the object is created in PostsModel, for this there is no array or list exist,that's why we have to initialize the array or list in our code.And make a custom list:
 Go to the home page ->
@@ -164,3 +164,84 @@ Write the code under body:
 
 
 ![Screenshot 2025-03-15 122317](https://github.com/user-attachments/assets/93b3b215-2306-445a-8140-359a08fba1c4)
+
+
+## Flutter get API with null safety: (If plugins faild to create a Model)
+###### import 'package:flutter/material.dart';
+###### import 'dart:convert';
+###### import 'package:http/http.dart' as http;
+
+###### class ExampleTwo extends StatefulWidget {
+######   ExampleTwo({super.key});
+
+
+
+######  @override
+######  State<ExampleTwo> createState() => _ExampleTwoState();
+###### }
+
+###### class _ExampleTwoState extends State<ExampleTwo> {
+
+
+######  List<Photos> photosList=[];
+
+######  Future<List<Photos>> getPhotos() async{
+    final response = await http.get(Uri.parse('https://jsonplaceholder.typicode.com/photos'));
+    var data = jsonDecode(response.body.toString());
+    if(response.statusCode==200){
+      for(Map i in data){
+        Photos photos=Photos(title: i['title'], url: i['url'],id:i['id'],thumbnailUrl:i['thumbnailUrl']);
+        photosList.add(photos);
+      }
+      return photosList;
+    }
+    else{
+      return photosList;
+    }
+ ###### }
+
+
+######  @override
+######  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Photos Api'),
+        backgroundColor: Colors.blueAccent,
+      ),
+      body: Column(
+        children: [
+          Expanded (child:
+          FutureBuilder(
+              future: getPhotos(),
+              builder: (context, AsyncSnapshot<List<Photos>> snapshot){
+                return ListView.builder(
+                    itemCount: photosList.length,
+                    itemBuilder: (context,index){
+                      return ListTile(
+                        leading: CircleAvatar(
+                          backgroundImage: NetworkImage(snapshot.data![index].url.toString()),
+                        ),
+                        trailing: CircleAvatar(backgroundImage: NetworkImage(snapshot.data![index].thumbnailUrl.toString(),
+                          // Ensures the image covers the available space
+                        ) ),
+
+                        subtitle: Text(snapshot.data![index].title.toString()),
+                        title: Text('Note the id: '+snapshot.data![index].id.toString()),
+                      );
+                    });
+              }),)
+
+        ],
+      ),
+    );
+######  }
+###### }
+
+
+###### class Photos{
+######  String title, url,thumbnailUrl ;
+######  int id;
+######  Photos({required this.title,required this.url,required this.thumbnailUrl,required this.id});
+###### }
+
+https://github.com/user-attachments/assets/579886b6-4713-45b0-9d50-5b51b84636f8
