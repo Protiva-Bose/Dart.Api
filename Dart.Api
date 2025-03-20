@@ -274,7 +274,7 @@ Body:  This is the post content...
 🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯
 
 
-🔐🗝️ Other code EXplanation:
+🖥️ 2.
 
 1️⃣ API Call (getPhotos Function)
 
@@ -376,5 +376,280 @@ title: Text('Note the id: '+snapshot.data![index].id.toString()) → Displays th
 
 🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯
 
-3.
+🖥️ 3. Flutter get API call with Null Safety: (Plugins make the Model) ->Complex Nested Object
+
+
+1️⃣ API Call (getUserApi Function)
+
+Future<List> getUserApi() async {
+  final response = await http.get(Uri.parse('https://jsonplaceholder.typicode.com/users'));
+
+  var data = jsonDecode(response.body.toString());
+
+  if (response.statusCode == 200) {
+    for (Map i in data) {
+      print(i['name']);
+      userList.add(UserModel.fromJson(i as Map<String, dynamic>));
+    }
+    return userList;
+  } else {
+    return userList;
+  }
+}
+
+
+🔹 What This Function Does
+✨ Makes an HTTP GET request
+http.get(Uri.parse('https://jsonplaceholder.typicode.com/users')) fetches a list of users from the API.
+
+✨ Decodes the JSON response
+jsonDecode(response.body.toString()) converts the JSON string into a Dart object (list of maps).
+
+✨ Checks if the response is successful (statusCode == 200)
+If successful, it loops through the JSON data.
+
+✨ Extracts and stores user data
+UserModel.fromJson(i as Map<String, dynamic>) converts each map into a UserModel object.
+userList.add(UserModel.fromJson(...)) adds each user to the list.
+
+✨ Returns the list of users
+Finally, the function returns userList.
+
+
+
+2️⃣ FutureBuilder & ListView (Displaying API Data)
+
+FutureBuilder(
+  future: getUserApi(),
+  builder: (context, AsyncSnapshot<List<UserModel>> snapshot) {
+    if (!snapshot.hasData) {
+      return CircularProgressIndicator();
+    } else {
+      return ListView.builder(
+        itemCount: userList.length,
+        itemBuilder: (context, index) {
+          return Card(
+            child: Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  ReusbaleRow(title: 'Name', value: snapshot.data![index].name.toString()),
+                  ReusbaleRow(title: 'UserName', value: snapshot.data![index].username.toString()),
+                  ReusbaleRow(title: 'Email', value: snapshot.data![index].email.toString()),
+                  ReusbaleRow(
+                    title: 'Address',
+                    value: snapshot.data![index].address!.city.toString() +
+                      snapshot.data![index].address!.geo!.lat.toString() +
+                      snapshot.data![index].address!.geo!.lng.toString(),
+                  ),
+                ],
+              ),
+            ),
+          );
+        },
+      );
+    }
+  },
+),
+
+
+
+🔹 What Happens Here?
+
+✨ FutureBuilder calls getUserApi()
+This function fetches user data asynchronously.
+
+✨ Handles loading state
+if (!snapshot.hasData) { return CircularProgressIndicator(); }
+Shows a loading spinner until the data is available.
+
+✨ Displays data using ListView.builder
+Uses itemCount: userList.length to determine how many items to display.
+itemBuilder generates UI for each user.
+
+✨ Displays User Information in a Card
+Uses the ReusbaleRow widget to display:
+Name
+Username
+Email
+Address (city + geo coordinates)
+
+
+3️⃣ Custom Widget: ReusbaleRow
+
+class ReusbaleRow extends StatelessWidget {
+  String title, value;
+
+  ReusbaleRow({Key? key, required this.title, required this.value}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.all(8.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(title),
+          Text(value),
+        ],
+      ),
+    );
+  }
+}
+
+
+🔹 What This Widget Does
+
+✨ Takes two parameters: title and value
+Example: ReusbaleRow(title: 'Name', value: 'John Doe')
+
+✨ Creates a Row Layout
+Text(title) → Displays the title (e.g., "Name")
+Text(value) → Displays the value (e.g., "John Doe")
+
+✨ Adds Padding
+padding: EdgeInsets.all(8.0)
+
+✨ Uses mainAxisAlignment: MainAxisAlignment.spaceBetween
+Places the title on the left and the value on the right.
+
+
+4️⃣ Issues and Fixes
+⚠️ Issue 1: FutureBuilder Not Handling Errors Properly
+Problem: If the API request fails, the app crashes.
+Fix: Add proper ConnectionState and error handling.
+
+
+✅ Fixed Code:
+
+FutureBuilder(
+  future: getUserApi(),
+  builder: (context, AsyncSnapshot<List<UserModel>> snapshot) {
+    if (snapshot.connectionState == ConnectionState.waiting) {
+      return Center(child: CircularProgressIndicator());
+    } else if (snapshot.hasError) {
+      return Center(child: Text('Error: ${snapshot.error}'));
+    } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+      return Center(child: Text('No data available'));
+    }
+
+    return ListView.builder(
+      itemCount: snapshot.data!.length,
+      itemBuilder: (context, index) {
+        return Card(
+          child: Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                ReusbaleRow(title: 'Name', value: snapshot.data![index].name),
+                ReusbaleRow(title: 'UserName', value: snapshot.data![index].username),
+                ReusbaleRow(title: 'Email', value: snapshot.data![index].email),
+                ReusbaleRow(
+                  title: 'Address',
+                  value: snapshot.data![index].address!.city + ", " +
+                         snapshot.data![index].address!.geo!.lat + ", " +
+                         snapshot.data![index].address!.geo!.lng,
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  },
+),
+
+
+
+
+✅ Final Working Code
+
+import 'package:flutter/material.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+
+class ExampleThree extends StatefulWidget {
+  @override
+  State<ExampleThree> createState() => _ExampleThreeState();
+}
+
+class _ExampleThreeState extends State<ExampleThree> {
+  List<UserModel> userList = [];
+
+  Future<List<UserModel>> getUserApi() async {
+    final response = await http.get(Uri.parse('https://jsonplaceholder.typicode.com/users'));
+    var data = jsonDecode(response.body.toString());
+
+    if (response.statusCode == 200) {
+      for (var i in data) {
+        userList.add(UserModel.fromJson(i));
+      }
+      return userList;
+    } else {
+      return [];
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Users API'),
+        backgroundColor: Colors.blueAccent,
+      ),
+      body: Column(
+        children: [
+          Expanded(
+            child: FutureBuilder<List<UserModel>>(
+              future: getUserApi(),
+              builder: (context, AsyncSnapshot<List<UserModel>> snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Center(child: CircularProgressIndicator());
+                } else if (snapshot.hasError) {
+                  return Center(child: Text('Error: ${snapshot.error}'));
+                } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                  return Center(child: Text('No data available'));
+                }
+
+                return ListView.builder(
+                  itemCount: snapshot.data!.length,
+                  itemBuilder: (context, index) {
+                    return Card(
+                      child: Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Column(
+                          children: [
+                            ReusbaleRow(title: 'Name', value: snapshot.data![index].name),
+                            ReusbaleRow(title: 'Username', value: snapshot.data![index].username),
+                            ReusbaleRow(title: 'Email', value: snapshot.data![index].email),
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                );
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class ReusbaleRow extends StatelessWidget {
+  final String title, value;
+
+  ReusbaleRow({required this.title, required this.value});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [Text(title), Text(value)],
+    );
+  }
+}
 
