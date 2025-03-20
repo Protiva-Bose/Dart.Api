@@ -1,7 +1,7 @@
-🔐🗝️ We see that there's only the object is created in PostsModel, for this there is no array or list exist,that's why we have to initialize the array or list in our code.And make a custom list:
-Go to the home page ->
-write the code of Future function under class:
+CODE EXPLANATION OF API FETCHED FROM jasonplaceholder site:
+🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯
 
+🖥️ 1. Flutter get API call with Null Safety: (Plugins make the Model) 
 
 .......................
 class _HomScreenState extends State<HomScreen> {
@@ -186,6 +186,7 @@ This function builds each item in the list, iterating through postList using an 
 1️⃣3️⃣ return Text(postList[index].title.toString());
 Displays each post’s title as a Text widget. The title is converted to a string to ensure it is displayed correctly.
 
+
 🔐🗝️ Working Process of the Code:
 ✨Starts Execution
 
@@ -203,9 +204,6 @@ Displays each post’s title as a Text widget. The title is converted to a strin
 🔐🗝️ Final Output:
 Before Data Loads → Shows "Loading...".
 After Data Loads → Displays a list of titles fetched from the API.
-
-
-
 
 
 
@@ -274,7 +272,7 @@ Body:  This is the post content...
 🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯
 
 
-🖥️ 2.
+🖥️ 2.Flutter get API with null safety: (If plugins faild to create a Model)
 
 1️⃣ API Call (getPhotos Function)
 
@@ -653,3 +651,4 @@ class ReusbaleRow extends StatelessWidget {
   }
 }
 
+🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯
