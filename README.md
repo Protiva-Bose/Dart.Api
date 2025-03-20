@@ -67,6 +67,9 @@ To integrate the api we have a prpackage named http,it allows to integrate api i
 Go to the home page ->
 write the code of Future function under class:
 ### .......................
+
+## 1.Flutter get API call with Null Safety: (Plugins make the Model)
+
 ##### class _HomScreenState extends State<HomScreen> {
  ##### List<PostsModel> postList = [];
 
@@ -166,7 +169,7 @@ Write the code under body:
 ![Screenshot 2025-03-15 122317](https://github.com/user-attachments/assets/93b3b215-2306-445a-8140-359a08fba1c4)
 
 
-## Flutter get API with null safety: (If plugins faild to create a Model)
+## 2. Flutter get API with null safety: (If plugins faild to create a Model)
 ###### import 'package:flutter/material.dart';
 ###### import 'dart:convert';
 ###### import 'package:http/http.dart' as http;
@@ -247,7 +250,7 @@ Write the code under body:
 https://github.com/user-attachments/assets/579886b6-4713-45b0-9d50-5b51b84636f8
 
 
-## Flutter get API call with Null Safety: (Plugins make the Model) ->Complex Nested Object
+## 3.Flutter get API call with Null Safety: (Plugins make the Model) ->Complex Nested Object
 
 ###### import 'package:flutter/material.dart';
 ###### import 'dart:convert';
