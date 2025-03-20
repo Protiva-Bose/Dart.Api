@@ -110,6 +110,7 @@ Returns the updated list.
 If the response is not successful, it simply returns an empty list.
 The build method returns an empty screen (Scaffold), but this can be expanded to display the postList in a widget like ListView.
 
+
 🔐🗝️ Potential Improvements:
 Handle API errors properly (e.g., show an error message).
 Use setState to update the UI after fetching data.
@@ -270,8 +271,107 @@ Title: Post Title
 Body:  This is the post content... 
 
 
-
+🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯
 
 
 🔐🗝️ Other code EXplanation:
+
+1️⃣ API Call (getPhotos Function)
+
+Future<List> getPhotos() async {
+  final response = await http.get(Uri.parse('https://jsonplaceholder.typicode.com/photos'));
+  var data = jsonDecode(response.body.toString());
+
+  if (response.statusCode == 200) {
+    for (Map i in data) {
+      Photos photos = Photos(
+        title: i['title'], 
+        url: i['url'], 
+        id: i['id'], 
+        thumbnailUrl: i['thumbnailUrl']
+      );
+      photosList.add(photos);
+    }
+    return photosList;
+  } else {
+    return photosList;
+  }
+}
+
+
+
+🔹 What is this function doing?
+✨ Makes an HTTP GET request
+
+http.get(Uri.parse('https://jsonplaceholder.typicode.com/photos'))
+Fetches a list of photos from the API.
+
+
+✨ Decodes the JSON response
+
+jsonDecode(response.body.toString())
+Converts the raw JSON string into a Dart object (list of maps).
+
+
+✨ Checks if the response is successful (statusCode == 200)
+
+HTTP status code 200 means "OK," indicating the request was successful.
+If successful, it loops through the JSON data.
+
+
+✨ Extracts and stores data
+
+Iterates over the API response (for (Map i in data) {}).
+Creates an instance of the Photos class with extracted values.
+Adds each Photos object to photosList.
+
+
+✨ Returns the list of photos
+
+The function finally returns the populated photosList.
+
+
+
+2️⃣ FutureBuilder & ListView (Displaying API Data)
+
+FutureBuilder(
+  future: getPhotos(),
+  builder: (context, AsyncSnapshot<List<Photos>> snapshot) {
+    return ListView.builder(
+      itemCount: photosList.length,
+      itemBuilder: (context, index) {
+        return ListTile(
+          leading: CircleAvatar(
+            backgroundImage: NetworkImage(snapshot.data![index].url.toString()),
+          ),
+          trailing: CircleAvatar(
+            backgroundImage: NetworkImage(snapshot.data![index].thumbnailUrl.toString()),
+          ),
+          subtitle: Text(snapshot.data![index].title.toString()),
+          title: Text('Note the id: ' + snapshot.data![index].id.toString()),
+        );
+      }
+    );
+  }
+),
+
+
+🔹 What is happening here?
+
+✨ FutureBuilder calls getPhotos()
+It fetches the photo list asynchronously.
+
+✨ ListView.builder creates UI dynamically
+
+✨ Uses itemCount: photosList.length to determine how many items to display.
+itemBuilder generates UI for each photo.
+
+✨ Displaying API data in ListTile
+
+leading: CircleAvatar(...) → Displays the main image.
+trailing: CircleAvatar(...) → Displays the thumbnail image.
+subtitle: Text(snapshot.data![index].title.toString()) → Shows the photo title.
+title: Text('Note the id: '+snapshot.data![index].id.toString()) → Displays the photo ID.
+
+
 
