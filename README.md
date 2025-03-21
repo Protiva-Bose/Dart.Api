@@ -1,5 +1,6 @@
 # Learn API with coding ----
-![CodeEncodingGIF](https://github.com/user-attachments/assets/e9871153-d96b-4ea9-8be0-3ae643448696)
+
+![StrayProgrammingGIF](https://github.com/user-attachments/assets/15fb21e4-430b-433e-9995-51567e33b5f7)
 
 
 # What is client or server?
