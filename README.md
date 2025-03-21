@@ -16,11 +16,11 @@ We can communicate with the client or server easily  with the help of REST api.
 1.Get 2.Post(a logging system) 3.Update 4.Put 5.Delete <br>
 To communicate with the server we use the HTTP protocols.
 ### How to create API's : The technologies used to built API's:
--> 1.Node.js 2.LAravel <br>
-### Api fetch from -> jsonplaceholder.com
-### API response checking -> postMan
-### We can make fake API's in -> webhook.site
-### To find the structure of API's response ->jsonviewer.stack.hu
+-> 1.Node.js  2.LAravel <br>
+### => Api fetch from -> jsonplaceholder.com
+### => API response checking -> postMan
+### => We can make fake API's in -> webhook.site
+### => To find the structure of API's response ->jsonviewer.stack.hu
 ### PostMan software is used to test the API
 # JSON
 -> Json stands for Javascript Object Notation,is a lightweight data-interchange format,plain text written in javascript object notation,used to send data between computers and also language indepencdent.
