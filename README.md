@@ -3,12 +3,9 @@
 
 
 # What is client or server?
--> A server is a computer or a system that provides the resources,data,services or programs to other computers,known as clients,over a network.<br>
+-> A server is a computer or a system that provides the resources,data,services or programs to other computers,known as clients,over a network.
 Example:<br>
-Googl<br>
-FoodPanda<br>
-Fcaebook<br>
-Whatsapp<br>
+Google,FoodPanda,Fcaebook,Whatsapp
 # API : (Application Program Interface), that allows conversation between client and server.
 -> In server ,cleint related datas are stored,when we search something in youtube,the srever collected the data and connected with the database and this database fetch our required query.<br>
 When we try to log in any website ,the client is connected via internet with the server the help of api,the request go to the server via API,and then the server validate this request and throw this to the database anf fetch this data or the requred data and send the OTP to the client.<br>
@@ -20,6 +17,8 @@ We can communicate with the client or server easily  with the help of REST api.
 To communicate with the server we use the HTTP protocols.
 ### How to create API's : The technologies used to built API's:
 -> 1.Node.js 2.LAravel <br>
+### Api fetch from -> jsonplaceholder.com
+### API response checking -> postMan
 ### We can make fake API's in -> webhook.site
 ### To find the structure of API's response ->jsonviewer.stack.hu
 ### PostMan software is used to test the API
