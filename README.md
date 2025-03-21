@@ -1,3 +1,7 @@
+Learn API?
+![StrayProgrammingGIF](https://github.com/user-attachments/assets/9c86bad8-048e-49f4-b8da-5ba70b50e893)
+![BeforeAfterGIF](https://github.com/user-attachments/assets/b91d1718-67d8-4a85-98cb-dcfa8bcdc2d4)
+
 # What is client or server?
 -> A server is a computer or a system that provides the resources,data,services or programs to other computers,known as clients,over a network.<br>
 Example:<br>
