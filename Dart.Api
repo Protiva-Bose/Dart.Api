@@ -652,3 +652,306 @@ class ReusbaleRow extends StatelessWidget {
 }
 
 🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯
+
+
+🖥️ 4. When we find complex api jason code in which that start from object and arry or list under this object :
+
+✨ FutureBuilder (Important Part)
+What is FutureBuilder?
+FutureBuilder is used to handle asynchronous data (data that comes from an API or a database).
+It listens to a Future and rebuilds the UI when the Future completes.
+
+
+✨ FutureBuilder<ProductsModel>(
+  future: getProductsApi(),
+  builder: (context, snapshot) {
+future: getProductsApi():     ............Calls the API function.
+builder: (context, snapshot): ...............snapshot holds the API response.
+
+
+✨ Handling API Response Inside FutureBuilder
+
+✨ if(snapshot.hasData) {
+✅ If data is available, show the API response.
+
+✨ return ListView.builder(
+  itemCount: snapshot.data!.data!.length,
+  itemBuilder: (context, index) {
+ListView.builder: ..................Dynamically displays a list of items from API.
+itemCount: snapshot.data!.data!.length: ...........Number of items from API.
+itemBuilder: ..............Creates each item dynamically.
+
+
+✨ Displaying Shop Information
+
+✨ ListTile(
+  title: Text(snapshot.data!.data![index].shop!.name.toString()),
+  subtitle: Text(snapshot.data!.data![index].shop!.shopemail.toString()),
+  leading: CircleAvatar(
+    backgroundImage: NetworkImage(snapshot.data!.data![index].shop!.image.toString()),
+  ),
+),
+ListTile: ...............Shows shop name, email, and image.
+backgroundImage: NetworkImage(url): ...............Loads image from the internet.
+
+
+✨ Displaying Product Images (Horizontal List)
+
+✨ Container(
+  height: MediaQuery.of(context).size.height * .3,
+  width: MediaQuery.of(context).size.width * 1,
+  child: ListView.builder(
+    scrollDirection: Axis.horizontal,
+    itemCount: snapshot.data!.data![index].images!.length,
+    itemBuilder: (context, position) {
+      return Padding(
+        padding: const EdgeInsets.only(right: 10),
+        child: Container(
+          height: MediaQuery.of(context).size.height * .25,
+          width: MediaQuery.of(context).size.width * .5,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            image: DecorationImage(
+              fit: BoxFit.cover,
+              image: NetworkImage(snapshot.data!.data![index].images![position].url.toString())
+            )
+          ),
+        ),
+      );
+    }
+  ),
+),
+Container: ................Holds the horizontal list of images.
+ListView.builder: ...................Creates a horizontal scrollable list of images.
+image: NetworkImage(url): ................Loads images from API.
+
+
+✨ Favorite Icon (Wishlist)
+
+✨ Icon(snapshot.data!.data![index].inWishlist! == false 
+    ? Icons.favorite 
+    : Icons.favorite_outline)
+If the product is in wishlist, show a filled heart (❤️).
+Otherwise, show an empty heart (🤍).
+
+
+✨ If API Has No Data
+
+✨ } else {
+  return Text('Loading');
+}
+
+If the API request is still loading, show "Loading".
+✅ Fix: Instead of Text('Loading'), use CircularProgressIndicator().
+
+
+
+🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯
+
+
+
+FutureBuilder<ProductsModel>(
+                future: getProductsApi (),
+                builder: (context , snapshot){
+                  if(snapshot.hasData){
+                    return ListView.builder(
+                        itemCount: snapshot.data!.data!.length,
+                        itemBuilder: (context, index){
+                          return Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              ListTile(
+                                title: Text(snapshot.data!.data![index].shop!.name.toString()),
+                                subtitle: Text(snapshot.data!.data![index].shop!.shopemail.toString()),
+                                leading: CircleAvatar(
+                                  backgroundImage: NetworkImage(snapshot.data!.data![index].shop!.image.toString()),
+                                ),
+                              ),
+                              Container(
+                                height: MediaQuery.of(context).size.height *.3,
+                                width: MediaQuery.of(context).size.width * 1,
+                                child: ListView.builder(
+                                    scrollDirection: Axis.horizontal,
+                                    itemCount: snapshot.data!.data![index].images!.length,
+                                    itemBuilder: (context, position){
+                                      return Padding(
+                                        padding: const EdgeInsets.only(right: 10),
+                                        child: Container(
+                                          height: MediaQuery.of(context).size.height *.25,
+                                          width: MediaQuery.of(context).size.width * .5,
+                                          decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.circular(10),
+                                              image: DecorationImage(
+                                                  fit: BoxFit.cover,
+                                                  image: NetworkImage(snapshot.data!.data![index].images![position].url.toString())
+                                              )
+                                          ),
+                                        ),
+                                      );
+                                    }),
+                              ),
+                              Icon(snapshot.data!.data![index].inWishlist! == false ? Icons.favorite : Icons.favorite_outline)
+                            ],
+                          );
+                        });
+                  }else {
+                    return Text('Loading');
+                  }
+                },
+              ),
+
+
+
+✨🗝️ This section of the code fetches API data and displays it dynamically using FutureBuilder. It creates a list of shops where each shop has:
+
+Shop details (name, email, image)
+A horizontal list of product images
+A wishlist icon (favorite/unfavorite)
+
+
+🔹 FutureBuilder Setup
+
+FutureBuilder<ProductsModel>(
+  future: getProductsApi(),
+  builder: (context, snapshot) {
+FutureBuilder<ProductsModel>:
+
+✨ Handles asynchronous data (API call).
+Expects a ProductsModel as the API response.
+future: getProductsApi():
+Calls the API function to fetch data.
+builder: (context, snapshot):
+snapshot contains the API response.
+Used to check if data is available or still loading.
+
+
+🔹 Handling API Data
+
+if (snapshot.hasData) {
+✨✅ If API data is available, proceed to display it.
+
+
+🔹 Creating a Scrollable List
+
+return ListView.builder(
+  itemCount: snapshot.data!.data!.length,
+  itemBuilder: (context, index) {
+ListView.builder:
+
+✨ Dynamically displays multiple items from API.
+itemCount: Total number of shops.
+itemBuilder: Builds each shop dynamically.
+
+
+🔹 Displaying Shop Details
+
+return Column(
+  mainAxisAlignment: MainAxisAlignment.start,
+  crossAxisAlignment: CrossAxisAlignment.start,
+  children: [
+    ListTile(
+      title: Text(snapshot.data!.data![index].shop!.name.toString()),
+      subtitle: Text(snapshot.data!.data![index].shop!.shopemail.toString()),
+      leading: CircleAvatar(
+        backgroundImage: NetworkImage(snapshot.data!.data![index].shop!.image.toString()),
+      ),
+    ),
+
+✨ Each shop is displayed as a ListTile.
+title: Text(snapshot.data!.data![index].shop!.name.toString())
+Displays shop name.
+subtitle: Text(snapshot.data!.data![index].shop!.shopemail.toString())
+Displays shop email.
+leading: CircleAvatar(...)
+Shows shop image as a circular avatar.
+
+
+🔹 Horizontal Scrollable List of Product Images
+
+Container(
+  height: MediaQuery.of(context).size.height * 0.3,
+  width: MediaQuery.of(context).size.width * 1,
+  child: ListView.builder(
+    scrollDirection: Axis.horizontal,
+    itemCount: snapshot.data!.data![index].images!.length,
+    itemBuilder: (context, position) {
+Container:
+
+✨ Holds a horizontal list of images.
+height: MediaQuery.of(context).size.height * 0.3
+Makes the container 30% of screen height.
+width: MediaQuery.of(context).size.width * 1
+Takes full screen width.
+ListView.builder:
+Creates a horizontal scrollable list.
+scrollDirection: Axis.horizontal
+Enables horizontal scrolling.
+itemCount: snapshot.data!.data![index].images!.length
+Gets the total number of images.
+
+
+🔹 Displaying Each Product Image
+
+return Padding(
+  padding: const EdgeInsets.only(right: 10),
+  child: Container(
+    height: MediaQuery.of(context).size.height * 0.25,
+    width: MediaQuery.of(context).size.width * 0.5,
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(10),
+      image: DecorationImage(
+        fit: BoxFit.cover,
+        image: NetworkImage(snapshot.data!.data![index].images![position].url.toString())
+      )
+    ),
+  ),
+);
+
+✨ Padding: Adds right margin (10 pixels) for spacing.
+Container: Displays each product image.
+height: MediaQuery.of(context).size.height * 0.25
+Image height is 25% of screen height.
+width: MediaQuery.of(context).size.width * 0.5
+Image width is 50% of screen width.
+borderRadius: BorderRadius.circular(10):
+Adds rounded corners to the image.
+image: DecorationImage(...)
+Uses NetworkImage(url) to load the image from API.
+fit: BoxFit.cover: Ensures image covers the container.
+
+
+🔹 Wishlist Icon (Favorite Button)
+
+Icon(snapshot.data!.data![index].inWishlist! == false 
+    ? Icons.favorite 
+    : Icons.favorite_outline)
+
+✨ Icons.favorite: If not in wishlist, show ❤️.
+Icons.favorite_outline: If in wishlist, show 🤍.
+
+
+🔹 Handling Loading State
+
+} else {
+  return Text('Loading');
+}
+
+✨ If API data is not available, show "Loading". ✅ Better Approach:
+Instead of Text('Loading'), use:
+return Center(child: CircularProgressIndicator());
+This shows a loading spinner instead of just text.
+
+
+
+✨🔹 Summary of Working Procedure
+
+FutureBuilder calls API (getProductsApi()).
+If API is loading → Show "Loading".
+If API returns data:
+Loop through shops using ListView.builder.
+Display shop details (name, email, image).
+Create a horizontal list of product images.
+Show favorite/unfavorite icon.
+User can scroll horizontally to see product images.
+
